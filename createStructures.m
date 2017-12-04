@@ -11,11 +11,23 @@ createStructures takes in the year table from urlreadtable and creates a structu
 with date, location, success and orbit information for each launch. 
 %}
 
-for i = 1:size(rocketInfo) - 1
-    rocketStructure.date(i) = rocketInfo(i+1,1);
-    rocketStructure.location(i) = rocketInfo(i+1,2);
-    rocketStructure.success(i) = rocketInfo(i+1,3);
-    rocketStructure.orbit(i) = rocketInfo(i+1,4);
+for i = 1:length(rocketInfo)
+    rocketStructure.Date(i) = rocketInfo{i}{1};
+    
+    if contains(rocketInfo{i}{4},'CC')
+        rocketStructure.Lat(i) = 28.3922;
+        rocketStructure.Lon(i) = -80.6077;
+    else
+        rocketStructure.Lat(i) = 34.7420;
+        rocketStructure.Lon(i) = -120.5724;
+    end
+    rocketStructure.Orbit(i) = rocketInfo{i}{7};
+    
+    if contains(rocketInfo{i}{8},'F')
+        rocketStructure.Success(i) = false;
+    else
+        rocketStructure.Success(i) = true;
+    end
 end
 
 end
